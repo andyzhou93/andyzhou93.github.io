@@ -14,9 +14,11 @@
         .matrix-table th.rotated { writing-mode: vertical-lr; transform: rotate(180deg); height: 100px; padding: 0.5rem 0.2rem; }
         .matrix-table .row-header { background: var(--primary-color); color: white; font-weight: 600; text-align: left; }
         .matrix-table .diagonal { font-weight: 700; }
-        .matrix-table .strength-col { background: #f5f5f5; font-weight: 600; }
-        .matrix-table .difficulty-row td { background: #f5f5f5; font-weight: 600; }
-        .playoff-star { color: gold; font-size: 0.8rem; }
+        .matrix-table .strength-col { font-weight: 600; }
+        .matrix-table .strength-header { background: #e0e0e0 !important; color: black !important; }
+        .matrix-table .difficulty-row td { font-weight: 600; }
+        .matrix-table .difficulty-row .row-header { background: #e0e0e0 !important; color: black !important; }
+        .playoff-star { color: magenta; font-size: 0.8rem; }
         .luck-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
         .luck-table th, .luck-table td { padding: 0.6rem 0.8rem; text-align: center; border-bottom: 1px solid var(--border-color); }
         .luck-table th { background: var(--primary-color); color: white; }
@@ -49,33 +51,33 @@
 
         <div class="card">
             <div class="card-header"><h2>Schedule Swap Matrix</h2></div>
-            <p style="margin-bottom: 1rem; color: var(--text-muted);">What would each team's record be if they played another team's schedule? Rows show teams, columns show whose schedule they're playing. Stars indicate playoff qualification (top 6). Sum across rows = Team Strength, sum down columns = Schedule Difficulty (higher = easier schedule).</p>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">What would each team's record be if they played another team's schedule? Rows show teams, columns show whose schedule they're playing. Stars indicate playoff qualification (top 6). Team Strength = average wins across all schedules. Ease of Schedule = average wins for all teams against that schedule (higher = easier).</p>
             <div class="schedule-matrix">
                 <table class="matrix-table">
-                    <thead><tr><th></th><th class="rotated">Super Ja’Marr..</th><th class="rotated">Ja(x/cks)on J..</th><th class="rotated">warr n breece</th><th class="rotated">OlaveGardenUn..</th><th class="rotated">Josh Allen a ..</th><th class="rotated">Full Court Pr..</th><th class="rotated">Jeanty and them</th><th class="rotated">Help my bois ..</th><th class="rotated">Breece’s Pieces</th><th class="rotated">Waddle they t..</th><th>Strength</th></tr></thead>
+                    <thead><tr><th></th><th class="rotated">Super Ja’Marr..</th><th class="rotated">Ja(x/cks)on J..</th><th class="rotated">warr n breece</th><th class="rotated">OlaveGardenUn..</th><th class="rotated">Josh Allen a ..</th><th class="rotated">Full Court Pr..</th><th class="rotated">Jeanty and them</th><th class="rotated">Help my bois ..</th><th class="rotated">Breece’s Pieces</th><th class="rotated">Waddle they t..</th><th class="rotated strength-header">Team Strength</th></tr></thead>
                     <tbody>
-                        <tr><td class="row-header">Super Ja’Marr..</td><td class=" diagonal" style="background-color: rgba(39, 174, 96, 0.41);">10 - 4 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.41);">10 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.37);">9 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.44);">11 - 4 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.41);">10 - 4 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.44);">11 - 4 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.37);">9 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.41);">10 - 4 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">6 - 8 <span class="playoff-star">★</span></td><td class="strength-col">92</td></tr>
-                        <tr><td class="row-header">Ja(x/cks)on J..</td><td class="" style="background-color: rgba(39, 174, 96, 0.41);">10 - 5 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(39, 174, 96, 0.37);">9 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.44);">11 - 3 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.41);">10 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.37);">9 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.37);">9 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.37);">9 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.37);">9 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">6 - 8 <span class="playoff-star">★</span></td><td class="strength-col">88</td></tr>
-                        <tr><td class="row-header">warr n breece</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 6 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(39, 174, 96, 0.37);">9 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.41);">10 - 4 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.37);">9 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.37);">9 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">6 - 8 <span class="playoff-star">★</span></td><td class="strength-col">80</td></tr>
-                        <tr><td class="row-header">OlaveGardenUn..</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 6 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(39, 174, 96, 0.37);">9 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">6 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">6 - 9 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231, 76, 60, 0.37);">5 - 9 <span class="playoff-star">★</span></td><td class="strength-col">69</td></tr>
-                        <tr><td class="row-header">Josh Allen a ..</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.41);">10 - 5 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(241, 196, 15, 0.2);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 8 <span class="playoff-star">★</span></td><td class="strength-col">75</td></tr>
-                        <tr><td class="row-header">Full Court Pr..</td><td class="" style="background-color: rgba(231, 76, 60, 0.37);">5 - 9</td><td class="" style="background-color: rgba(231, 76, 60, 0.41);">4 - 10</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231, 76, 60, 0.37);">5 - 9</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 8 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(241, 196, 15, 0.2);">6 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">6 - 9 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231, 76, 60, 0.37);">5 - 9</td><td class="" style="background-color: rgba(231, 76, 60, 0.41);">4 - 10</td><td class="" style="background-color: rgba(231, 76, 60, 0.41);">4 - 11</td><td class="strength-col">51</td></tr>
-                        <tr><td class="row-header">Jeanty and them</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">6 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 8 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(231, 76, 60, 0.37);">5 - 9</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231, 76, 60, 0.37);">5 - 10</td><td class="strength-col">66</td></tr>
-                        <tr><td class="row-header">Help my bois ..</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">6 - 9 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231, 76, 60, 0.37);">5 - 9</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">8 - 6 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(231, 76, 60, 0.37);">5 - 9</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">6 - 8 <span class="playoff-star">★</span></td><td class="strength-col">66</td></tr>
-                        <tr><td class="row-header">Breece’s Pieces</td><td class="" style="background-color: rgba(231, 76, 60, 0.41);">4 - 10</td><td class="" style="background-color: rgba(231, 76, 60, 0.44);">3 - 12</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">6 - 9</td><td class="" style="background-color: rgba(231, 76, 60, 0.37);">5 - 9</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">6 - 8</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231, 76, 60, 0.37);">5 - 10</td><td class="" style="background-color: rgba(231, 76, 60, 0.37);">5 - 9</td><td class=" diagonal" style="background-color: rgba(231, 76, 60, 0.37);">5 - 9</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">6 - 9</td><td class="strength-col">50</td></tr>
-                        <tr><td class="row-header">Waddle they t..</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">6 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">6 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(39, 174, 96, 0.37);">9 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231, 76, 60, 0.37);">5 - 10</td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241, 196, 15, 0.2);">7 - 8 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(231, 76, 60, 0.41);">4 - 10</td><td class="strength-col">63</td></tr>
-                        <tr class="difficulty-row"><td class="row-header">Difficulty</td><td>71</td><td>66</td><td>75</td><td>77</td><td>77</td><td>68</td><td>71</td><td>69</td><td>73</td><td>53</td><td></td></tr>
+                        <tr><td class="row-header">Super Ja’Marr..</td><td class=" diagonal" style="background-color: rgba(154,187,50,0.51);">10 - 4 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(154,187,50,0.51);">10 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(183,190,38,0.44);">9 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(126,183,61,0.59);">11 - 4 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(154,187,50,0.51);">10 - 4 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(126,183,61,0.59);">11 - 4 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(183,190,38,0.44);">9 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(154,187,50,0.51);">10 - 4 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,179,21,0.37);">6 - 8 <span class="playoff-star">★</span></td><td class="strength-col" style="background-color: rgba(178,189,40,0.46);">9.2</td></tr>
+                        <tr><td class="row-header">Ja(x/cks)on J..</td><td class="" style="background-color: rgba(154,187,50,0.51);">10 - 5 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(183,190,38,0.44);">9 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(126,183,61,0.59);">11 - 3 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(154,187,50,0.51);">10 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(183,190,38,0.44);">9 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(183,190,38,0.44);">9 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(183,190,38,0.44);">9 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(183,190,38,0.44);">9 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,179,21,0.37);">6 - 8 <span class="playoff-star">★</span></td><td class="strength-col" style="background-color: rgba(189,190,36,0.43);">8.8</td></tr>
+                        <tr><td class="row-header">warr n breece</td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 6 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(183,190,38,0.44);">9 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(154,187,50,0.51);">10 - 4 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(183,190,38,0.44);">9 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(183,190,38,0.44);">9 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,179,21,0.37);">6 - 8 <span class="playoff-star">★</span></td><td class="strength-col" style="background-color: rgba(212,193,27,0.37);">8.0</td></tr>
+                        <tr><td class="row-header">OlaveGardenUn..</td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 6 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(183,190,38,0.44);">9 - 5 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,179,21,0.37);">6 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,179,21,0.37);">6 - 9 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,162,28,0.44);">5 - 9</td><td class="strength-col" style="background-color: rgba(231,194,16,0.31);">6.9</td></tr>
+                        <tr><td class="row-header">Josh Allen a ..</td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(154,187,50,0.51);">10 - 5 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(212,193,27,0.37);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 8 <span class="playoff-star">★</span></td><td class="strength-col" style="background-color: rgba(227,194,21,0.34);">7.5</td></tr>
+                        <tr><td class="row-header">Full Court Pr..</td><td class="" style="background-color: rgba(231,162,28,0.44);">5 - 9</td><td class="" style="background-color: rgba(231,145,34,0.51);">4 - 10</td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,162,28,0.44);">5 - 9</td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 8 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(231,179,21,0.37);">6 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,179,21,0.37);">6 - 9</td><td class="" style="background-color: rgba(231,162,28,0.44);">5 - 9</td><td class="" style="background-color: rgba(231,145,34,0.51);">4 - 10</td><td class="" style="background-color: rgba(231,145,34,0.51);">4 - 11</td><td class="strength-col" style="background-color: rgba(231,163,27,0.44);">5.1</td></tr>
+                        <tr><td class="row-header">Jeanty and them</td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,179,21,0.37);">6 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 8 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(231,162,28,0.44);">5 - 9</td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,162,28,0.44);">5 - 10</td><td class="strength-col" style="background-color: rgba(231,189,18,0.33);">6.6</td></tr>
+                        <tr><td class="row-header">Help my bois ..</td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,179,21,0.37);">6 - 9 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,162,28,0.44);">5 - 9</td><td class="" style="background-color: rgba(212,193,27,0.37);">8 - 6</td><td class=" diagonal" style="background-color: rgba(231,162,28,0.44);">5 - 9</td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,179,21,0.37);">6 - 8</td><td class="strength-col" style="background-color: rgba(231,189,18,0.33);">6.6</td></tr>
+                        <tr><td class="row-header">Breece’s Pieces</td><td class="" style="background-color: rgba(231,145,34,0.51);">4 - 10</td><td class="" style="background-color: rgba(231,127,41,0.59);">3 - 12</td><td class="" style="background-color: rgba(231,179,21,0.37);">6 - 9</td><td class="" style="background-color: rgba(231,162,28,0.44);">5 - 9</td><td class="" style="background-color: rgba(231,179,21,0.37);">6 - 8</td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,162,28,0.44);">5 - 10</td><td class="" style="background-color: rgba(231,162,28,0.44);">5 - 9</td><td class=" diagonal" style="background-color: rgba(231,162,28,0.44);">5 - 9</td><td class="" style="background-color: rgba(231,179,21,0.37);">6 - 9</td><td class="strength-col" style="background-color: rgba(231,162,28,0.44);">5.0</td></tr>
+                        <tr><td class="row-header">Waddle they t..</td><td class="" style="background-color: rgba(231,179,21,0.37);">6 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,179,21,0.37);">6 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(183,190,38,0.44);">9 - 6 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 8 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(231,162,28,0.44);">5 - 10</td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 7 <span class="playoff-star">★</span></td><td class="" style="background-color: rgba(241,196,15,0.30);">7 - 8 <span class="playoff-star">★</span></td><td class=" diagonal" style="background-color: rgba(231,145,34,0.51);">4 - 10</td><td class="strength-col" style="background-color: rgba(231,184,20,0.35);">6.3</td></tr>
+                        <tr class="difficulty-row"><td class="row-header">Ease of Schedule</td><td style="background-color: rgba(238,196,16,0.31);">7.1</td><td style="background-color: rgba(231,189,18,0.33);">6.6</td><td style="background-color: rgba(227,194,21,0.34);">7.5</td><td style="background-color: rgba(221,194,23,0.35);">7.7</td><td style="background-color: rgba(221,194,23,0.35);">7.7</td><td style="background-color: rgba(231,193,16,0.31);">6.8</td><td style="background-color: rgba(238,196,16,0.31);">7.1</td><td style="background-color: rgba(231,194,16,0.31);">6.9</td><td style="background-color: rgba(232,195,18,0.32);">7.3</td><td style="background-color: rgba(231,167,26,0.42);">5.3</td><td></td></tr>
                     </tbody>
                 </table>
             </div>
             <h3 style="margin-top: 1.5rem;">Win Distribution by Team</h3>
-            <p style="margin-bottom: 1rem; color: var(--text-muted);">Distribution of wins across all possible schedules. The median indicates expected wins given team strength.</p>
-            <div id="histogram-plot" style="height: 500px;"></div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">Distribution of wins across Monte Carlo'd (N=100,000) random schedules. Expected standings and delta from actual standings show how lucky/unlucky you were. How in the world did Jackie make it into the playoffs??? Also, what a steal by Esther who really should be our beer mile runner this season!</p>
+            <div id="histogram-plot" style="height: 700px;"></div>
         </div>
 
         <div class="card">
             <div class="card-header"><h2>Opponent Performance Luck</h2></div>
-            <p style="margin-bottom: 1rem; color: var(--text-muted);">Did your opponents have good or bad weeks against you? This compares your actual record to what it would be if opponents always scored their season average.</p>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">Did your opponents have good or bad weeks against you? This compares your actual record to what it would be if opponents always scored their season average. I dunno Shalini, this is leaning more towards "your team was ass" than towards "your opponents got lucky"... </p>
             <table class="luck-table">
                 <thead><tr><th class="team-name">Team</th><th>Actual Record</th><th>vs Opponent Means</th><th>Luck Delta</th></tr></thead>
                 <tbody>
@@ -95,7 +97,7 @@
 
         <div class="card">
             <div class="card-header"><h2>Median Scoring System</h2></div>
-            <p style="margin-bottom: 1rem; color: var(--text-muted);">An alternative scoring system where teams earn an additional win/loss each week based on whether they beat the league median score. This reduces schedule luck by rewarding teams that score well regardless of opponent.</p>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">An alternative scoring system where teams earn an additional win/loss each week based on whether they beat the league median score. This reduces schedule luck by rewarding teams that score well regardless of opponent. Turns out, this wouldn't have changed a thing!</p>
             <table class="luck-table">
                 <thead><tr><th class="team-name">Team</th><th>Actual (14 games)</th><th>vs Median (14 games)</th><th>Combined (28 games)</th><th>New Rank</th></tr></thead>
                 <tbody>
@@ -117,191 +119,298 @@
             var ridgeData = [];
             var annotations = [];
             ridgeData.push({
-                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
-                y: [0.000, 0.000, 0.000, 0.000, 0.200, 0.200, 0.400, 1.000, 0.000, 0.200, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000],
-                fill: 'toself',
-                fillcolor: 'rgba(231,76,60,0.6)',
-                line: { color: 'rgb(231,76,60)', width: 1.5 },
+                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                y: [0.0000, 0.0016, 0.0245, 0.1256, 0.3827, 0.7800, 1.0000, 0.8683, 0.5229, 0.2255, 0.0667, 0.0130, 0.0013, 0.0001, 0.0000],
+                base: 0.00,
+                type: 'bar',
+                marker: {
+                    color: 'rgba(231,76,60,0.7)',
+                    line: { color: 'rgb(231,76,60)', width: 1 }
+                },
                 name: 'Waddle they think of next',
                 showlegend: false,
-                hoverinfo: 'name'
+                hovertemplate: 'Waddle they think of next<br>%{x} wins: %{y:.1%}<extra></extra>'
             });
             annotations.push({
-                x: 14.5,
+                x: 6,
                 y: 0.50,
-                text: 'Waddle they think of next (7.0)',
+                text: '6.0',
+                showarrow: false,
+                font: { size: 10, color: 'white', weight: 'bold' }
+            });
+            annotations.push({
+                x: 15.0,
+                y: 0.50,
+                text: 'Waddle they think of next (Expected 8th, Δ +2)',
                 showarrow: false,
                 xanchor: 'left',
                 font: { size: 11, color: 'rgb(231,76,60)' }
             });
             ridgeData.push({
-                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
-                y: [0.800, 0.800, 0.800, 1.050, 1.050, 1.800, 1.550, 1.050, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800, 0.800],
-                fill: 'toself',
-                fillcolor: 'rgba(211,84,78,0.6)',
-                line: { color: 'rgb(211,84,78)', width: 1.5 },
+                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                y: [0.0000, 0.0225, 0.1591, 0.4985, 0.8687, 1.0000, 0.7218, 0.3109, 0.0743, 0.0091, 0.0006, 0.0000, 0.0000, 0.0000, 0.0000],
+                base: 1.15,
+                type: 'bar',
+                marker: {
+                    color: 'rgba(211,84,78,0.7)',
+                    line: { color: 'rgb(211,84,78)', width: 1 }
+                },
                 name: 'Breece’s Pieces',
                 showlegend: false,
-                hoverinfo: 'name'
+                hovertemplate: 'Breece’s Pieces<br>%{x} wins: %{y:.1%}<extra></extra>'
             });
             annotations.push({
-                x: 14.5,
-                y: 1.30,
-                text: 'Breece’s Pieces (5.0)',
+                x: 5,
+                y: 1.65,
+                text: '5.0',
+                showarrow: false,
+                font: { size: 10, color: 'white', weight: 'bold' }
+            });
+            annotations.push({
+                x: 15.0,
+                y: 1.65,
+                text: 'Breece’s Pieces (Expected 10th, Δ -1)',
                 showarrow: false,
                 xanchor: 'left',
                 font: { size: 11, color: 'rgb(211,84,78)' }
             });
             ridgeData.push({
-                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
-                y: [1.600, 1.600, 1.600, 1.600, 1.600, 2.100, 2.100, 2.100, 2.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600, 1.600],
-                fill: 'toself',
-                fillcolor: 'rgba(191,93,95,0.6)',
-                line: { color: 'rgb(191,93,95)', width: 1.5 },
+                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                y: [0.0000, 0.0000, 0.0000, 0.0131, 0.1247, 0.5212, 1.0000, 0.9989, 0.5611, 0.1708, 0.0221, 0.0008, 0.0000, 0.0000, 0.0000],
+                base: 2.30,
+                type: 'bar',
+                marker: {
+                    color: 'rgba(191,93,95,0.7)',
+                    line: { color: 'rgb(191,93,95)', width: 1 }
+                },
                 name: 'Help my bois is Hurts',
                 showlegend: false,
-                hoverinfo: 'name'
+                hovertemplate: 'Help my bois is Hurts<br>%{x} wins: %{y:.1%}<extra></extra>'
             });
             annotations.push({
-                x: 14.5,
-                y: 2.10,
-                text: 'Help my bois is Hurts (7.0)',
+                x: 7,
+                y: 2.80,
+                text: '7.0',
+                showarrow: false,
+                font: { size: 10, color: 'white', weight: 'bold' }
+            });
+            annotations.push({
+                x: 15.0,
+                y: 2.80,
+                text: 'Help my bois is Hurts (Expected 6th, Δ +2)',
                 showarrow: false,
                 xanchor: 'left',
                 font: { size: 11, color: 'rgb(191,93,95)' }
             });
             ridgeData.push({
-                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
-                y: [2.400, 2.400, 2.400, 2.400, 2.400, 2.900, 2.650, 3.400, 3.150, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400, 2.400],
-                fill: 'toself',
-                fillcolor: 'rgba(171,101,113,0.6)',
-                line: { color: 'rgb(171,101,113)', width: 1.5 },
+                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                y: [0.0000, 0.0000, 0.0021, 0.0428, 0.2411, 0.6310, 0.9908, 1.0000, 0.6552, 0.2658, 0.0624, 0.0067, 0.0000, 0.0000, 0.0000],
+                base: 3.45,
+                type: 'bar',
+                marker: {
+                    color: 'rgba(171,101,113,0.7)',
+                    line: { color: 'rgb(171,101,113)', width: 1 }
+                },
                 name: 'Jeanty and them',
                 showlegend: false,
-                hoverinfo: 'name'
+                hovertemplate: 'Jeanty and them<br>%{x} wins: %{y:.1%}<extra></extra>'
             });
             annotations.push({
-                x: 14.5,
-                y: 2.90,
-                text: 'Jeanty and them (7.0)',
+                x: 7,
+                y: 3.95,
+                text: '7.0',
+                showarrow: false,
+                font: { size: 10, color: 'white', weight: 'bold' }
+            });
+            annotations.push({
+                x: 15.0,
+                y: 3.95,
+                text: 'Jeanty and them (Expected 7th, Δ 0)',
                 showarrow: false,
                 xanchor: 'left',
                 font: { size: 11, color: 'rgb(171,101,113)' }
             });
             ridgeData.push({
-                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
-                y: [3.200, 3.200, 3.200, 3.200, 4.200, 4.200, 3.867, 3.867, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200, 3.200],
-                fill: 'toself',
-                fillcolor: 'rgba(151,110,131,0.6)',
-                line: { color: 'rgb(151,110,131)', width: 1.5 },
+                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                y: [0.0005, 0.0144, 0.1230, 0.4353, 0.8546, 1.0000, 0.7222, 0.3319, 0.0985, 0.0184, 0.0015, 0.0001, 0.0000, 0.0000, 0.0000],
+                base: 4.60,
+                type: 'bar',
+                marker: {
+                    color: 'rgba(151,110,131,0.7)',
+                    line: { color: 'rgb(151,110,131)', width: 1 }
+                },
                 name: 'Full Court Prescott',
                 showlegend: false,
-                hoverinfo: 'name'
+                hovertemplate: 'Full Court Prescott<br>%{x} wins: %{y:.1%}<extra></extra>'
             });
             annotations.push({
-                x: 14.5,
-                y: 3.70,
-                text: 'Full Court Prescott (5.0)',
+                x: 5,
+                y: 5.10,
+                text: '5.0',
+                showarrow: false,
+                font: { size: 10, color: 'white', weight: 'bold' }
+            });
+            annotations.push({
+                x: 15.0,
+                y: 5.10,
+                text: 'Full Court Prescott (Expected 9th, Δ -3)',
                 showarrow: false,
                 xanchor: 'left',
                 font: { size: 11, color: 'rgb(151,110,131)' }
             });
             ridgeData.push({
-                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
-                y: [4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 5.000, 4.800, 4.000, 4.200, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000, 4.000],
-                fill: 'toself',
-                fillcolor: 'rgba(132,118,148,0.6)',
-                line: { color: 'rgb(132,118,148)', width: 1.5 },
+                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                y: [0.0000, 0.0000, 0.0000, 0.0019, 0.0243, 0.1904, 0.5982, 1.0000, 0.9703, 0.5921, 0.2297, 0.0554, 0.0054, 0.0001, 0.0000],
+                base: 5.75,
+                type: 'bar',
+                marker: {
+                    color: 'rgba(132,118,148,0.7)',
+                    line: { color: 'rgb(132,118,148)', width: 1 }
+                },
                 name: 'Josh Allen a lil bish',
                 showlegend: false,
-                hoverinfo: 'name'
+                hovertemplate: 'Josh Allen a lil bish<br>%{x} wins: %{y:.1%}<extra></extra>'
             });
             annotations.push({
-                x: 14.5,
-                y: 4.50,
-                text: 'Josh Allen a lil bish (7.5)',
+                x: 8,
+                y: 6.24,
+                text: '8.0',
+                showarrow: false,
+                font: { size: 10, color: 'white', weight: 'bold' }
+            });
+            annotations.push({
+                x: 15.0,
+                y: 6.25,
+                text: 'Josh Allen a lil bish (Expected 4th, Δ +1)',
                 showarrow: false,
                 xanchor: 'left',
                 font: { size: 11, color: 'rgb(132,118,148)' }
             });
             ridgeData.push({
-                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
-                y: [4.800, 4.800, 4.800, 4.800, 4.800, 5.133, 5.467, 5.800, 5.800, 5.133, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800, 4.800],
-                fill: 'toself',
-                fillcolor: 'rgba(112,127,166,0.6)',
-                line: { color: 'rgb(112,127,166)', width: 1.5 },
+                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                y: [0.0000, 0.0000, 0.0010, 0.0178, 0.1382, 0.4844, 0.8649, 1.0000, 0.7767, 0.3641, 0.1074, 0.0178, 0.0019, 0.0000, 0.0000],
+                base: 6.90,
+                type: 'bar',
+                marker: {
+                    color: 'rgba(112,127,166,0.7)',
+                    line: { color: 'rgb(112,127,166)', width: 1 }
+                },
                 name: 'OlaveGardenUnlimitedBateskicks',
                 showlegend: false,
-                hoverinfo: 'name'
+                hovertemplate: 'OlaveGardenUnlimitedBateskicks<br>%{x} wins: %{y:.1%}<extra></extra>'
             });
             annotations.push({
-                x: 14.5,
-                y: 5.30,
-                text: 'OlaveGardenUnlimitedBateskicks (7.0)',
+                x: 7,
+                y: 7.40,
+                text: '7.0',
+                showarrow: false,
+                font: { size: 10, color: 'white', weight: 'bold' }
+            });
+            annotations.push({
+                x: 15.0,
+                y: 7.40,
+                text: 'OlaveGardenUnlimitedBateskicks (Expected 5th, Δ -1)',
                 showarrow: false,
                 xanchor: 'left',
                 font: { size: 11, color: 'rgb(112,127,166)' }
             });
             ridgeData.push({
-                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
-                y: [5.600, 5.600, 5.600, 5.600, 5.600, 5.600, 5.850, 5.850, 6.600, 6.350, 5.850, 5.600, 5.600, 5.600, 5.600, 5.600, 5.600, 5.600, 5.600, 5.600, 5.600, 5.600, 5.600, 5.600, 5.600, 5.600, 5.600, 5.600, 5.600, 5.600],
-                fill: 'toself',
-                fillcolor: 'rgba(92,135,184,0.6)',
-                line: { color: 'rgb(92,135,184)', width: 1.5 },
+                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                y: [0.0000, 0.0000, 0.0000, 0.0000, 0.0012, 0.0316, 0.2293, 0.7195, 1.0000, 0.7320, 0.3169, 0.0787, 0.0111, 0.0005, 0.0000],
+                base: 8.05,
+                type: 'bar',
+                marker: {
+                    color: 'rgba(92,135,184,0.7)',
+                    line: { color: 'rgb(92,135,184)', width: 1 }
+                },
                 name: 'warr n breece',
                 showlegend: false,
-                hoverinfo: 'name'
+                hovertemplate: 'warr n breece<br>%{x} wins: %{y:.1%}<extra></extra>'
             });
             annotations.push({
-                x: 14.5,
-                y: 6.10,
-                text: 'warr n breece (8.0)',
+                x: 8,
+                y: 8.55,
+                text: '8.0',
+                showarrow: false,
+                font: { size: 10, color: 'white', weight: 'bold' }
+            });
+            annotations.push({
+                x: 15.0,
+                y: 8.55,
+                text: 'warr n breece (Expected 3rd, Δ 0)',
                 showarrow: false,
                 xanchor: 'left',
                 font: { size: 11, color: 'rgb(92,135,184)' }
             });
             ridgeData.push({
-                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
-                y: [6.400, 6.400, 6.400, 6.400, 6.400, 6.400, 6.600, 6.400, 6.600, 7.400, 6.800, 6.600, 6.400, 6.400, 6.400, 6.400, 6.400, 6.400, 6.400, 6.400, 6.400, 6.400, 6.400, 6.400, 6.400, 6.400, 6.400, 6.400, 6.400, 6.400],
-                fill: 'toself',
-                fillcolor: 'rgba(72,144,201,0.6)',
-                line: { color: 'rgb(72,144,201)', width: 1.5 },
+                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                y: [0.0000, 0.0000, 0.0000, 0.0000, 0.0002, 0.0063, 0.0550, 0.2547, 0.6659, 1.0000, 0.7366, 0.2432, 0.0502, 0.0000, 0.0000],
+                base: 9.20,
+                type: 'bar',
+                marker: {
+                    color: 'rgba(72,144,201,0.7)',
+                    line: { color: 'rgb(72,144,201)', width: 1 }
+                },
                 name: 'Ja(x/cks)on Ja(x/cks) Off',
                 showlegend: false,
-                hoverinfo: 'name'
+                hovertemplate: 'Ja(x/cks)on Ja(x/cks) Off<br>%{x} wins: %{y:.1%}<extra></extra>'
             });
             annotations.push({
-                x: 14.5,
-                y: 6.90,
-                text: 'Ja(x/cks)on Ja(x/cks) Off (9.0)',
+                x: 9,
+                y: 9.70,
+                text: '9.0',
+                showarrow: false,
+                font: { size: 10, color: 'white', weight: 'bold' }
+            });
+            annotations.push({
+                x: 15.0,
+                y: 9.70,
+                text: 'Ja(x/cks)on Ja(x/cks) Off (Expected 2nd, Δ 0)',
                 showarrow: false,
                 xanchor: 'left',
                 font: { size: 11, color: 'rgb(72,144,201)' }
             });
             ridgeData.push({
-                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
-                y: [7.200, 7.200, 7.200, 7.200, 7.200, 7.200, 7.450, 7.200, 7.450, 7.700, 8.200, 7.700, 7.200, 7.200, 7.200, 7.200, 7.200, 7.200, 7.200, 7.200, 7.200, 7.200, 7.200, 7.200, 7.200, 7.200, 7.200, 7.200, 7.200, 7.200],
-                fill: 'toself',
-                fillcolor: 'rgba(52,152,219,0.6)',
-                line: { color: 'rgb(52,152,219)', width: 1.5 },
+                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                y: [0.0000, 0.0000, 0.0000, 0.0000, 0.0001, 0.0034, 0.0388, 0.1971, 0.5632, 0.9905, 1.0000, 0.5597, 0.1493, 0.0113, 0.0000],
+                base: 10.35,
+                type: 'bar',
+                marker: {
+                    color: 'rgba(52,152,219,0.7)',
+                    line: { color: 'rgb(52,152,219)', width: 1 }
+                },
                 name: 'Super Ja’Marrio Bros',
                 showlegend: false,
-                hoverinfo: 'name'
+                hovertemplate: 'Super Ja’Marrio Bros<br>%{x} wins: %{y:.1%}<extra></extra>'
             });
             annotations.push({
-                x: 14.5,
-                y: 7.70,
-                text: 'Super Ja’Marrio Bros (10.0)',
+                x: 9,
+                y: 10.85,
+                text: '9.0',
+                showarrow: false,
+                font: { size: 10, color: 'white', weight: 'bold' }
+            });
+            annotations.push({
+                x: 15.0,
+                y: 10.85,
+                text: 'Super Ja’Marrio Bros (Expected 1st, Δ 0)',
                 showarrow: false,
                 xanchor: 'left',
                 font: { size: 11, color: 'rgb(52,152,219)' }
             });
             var layout = {
-                xaxis: { title: 'Wins', range: [-0.5, 20], dtick: 1 },
-                yaxis: { visible: false, range: [-0.5, 9.0] },
+                xaxis: {
+                    title: 'Wins',
+                    range: [-0.5, 30],
+                    tickvals: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                    ticktext: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14']
+                },
+                yaxis: { visible: false, range: [-0.2, 12.7] },
+                barmode: 'overlay',
+                bargap: 0.1,
                 showlegend: false,
                 annotations: annotations,
-                margin: { t: 30, r: 150, l: 50, b: 50 },
+                margin: { t: 30, r: 30, l: 50, b: 50 },
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)'
             };
@@ -309,7 +418,7 @@
         </script>
 
         <div class="footer">
-            Generated on 2026-01-03 19:22:46
+            Generated on 2026-01-04 11:54:39
         </div>
     </div>
 </body>
