@@ -7,25 +7,33 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <style>
-        .schedule-matrix { overflow-x: auto; margin-bottom: 2rem; }
-        .matrix-table { border-collapse: collapse; font-size: 0.75rem; }
-        .matrix-table th, .matrix-table td { padding: 0.3rem 0.4rem; text-align: center; border: 1px solid var(--border-color); white-space: nowrap; }
+        .schedule-matrix { overflow-x: auto; margin-bottom: 2rem; -webkit-overflow-scrolling: touch; }
+        .matrix-table { border-collapse: collapse; font-size: 0.7rem; }
+        .matrix-table th, .matrix-table td { padding: 0.25rem 0.3rem; text-align: center; border: 1px solid var(--border-color); white-space: nowrap; }
         .matrix-table th { background: var(--primary-color); color: white; font-weight: 600; }
-        .matrix-table th.rotated { writing-mode: vertical-lr; transform: rotate(180deg); height: 100px; padding: 0.5rem 0.2rem; }
+        .matrix-table th.rotated { writing-mode: vertical-lr; transform: rotate(180deg); height: 80px; padding: 0.4rem 0.15rem; font-size: 0.65rem; }
         .matrix-table .row-header { background: var(--primary-color); color: white; font-weight: 600; text-align: left; }
         .matrix-table .diagonal { font-weight: 700; }
         .matrix-table .strength-col { font-weight: 600; }
         .matrix-table .strength-header { background: #e0e0e0 !important; color: black !important; }
         .matrix-table .difficulty-row td { font-weight: 600; }
         .matrix-table .difficulty-row .row-header { background: #e0e0e0 !important; color: black !important; }
-        .playoff-star { color: magenta; font-size: 0.8rem; }
-        .luck-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        .luck-table th, .luck-table td { padding: 0.6rem 0.8rem; text-align: center; border-bottom: 1px solid var(--border-color); }
+        .playoff-star { color: magenta; font-size: 0.7rem; }
+        .luck-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        .luck-table th, .luck-table td { padding: 0.5rem 0.6rem; text-align: center; border-bottom: 1px solid var(--border-color); }
         .luck-table th { background: var(--primary-color); color: white; }
         .luck-table .team-name { text-align: left; }
         .luck-positive { color: var(--success-color); font-weight: 600; }
         .luck-negative { color: var(--accent-color); font-weight: 600; }
         .histogram-container { display: flex; gap: 2rem; flex-wrap: wrap; }
+        @media (max-width: 768px) {
+            .matrix-table { font-size: 0.55rem; }
+            .matrix-table th, .matrix-table td { padding: 0.15rem 0.2rem; }
+            .matrix-table th.rotated { height: 50px; font-size: 0.5rem; }
+            .playoff-star { font-size: 0.55rem; }
+            .luck-table { font-size: 0.7rem; }
+            .luck-table th, .luck-table td { padding: 0.35rem 0.3rem; }
+        }
         .histogram-plot { flex: 1; min-width: 300px; height: 400px; }
     </style>
 </head>
@@ -120,7 +128,7 @@
             var annotations = [];
             ridgeData.push({
                 x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-                y: [0.0000, 0.0016, 0.0245, 0.1256, 0.3827, 0.7800, 1.0000, 0.8683, 0.5229, 0.2255, 0.0667, 0.0130, 0.0013, 0.0001, 0.0000],
+                y: [0.0000, 0.0012, 0.0223, 0.1207, 0.3908, 0.7811, 1.0000, 0.8677, 0.5291, 0.2215, 0.0642, 0.0124, 0.0016, 0.0001, 0.0000],
                 base: 0.00,
                 type: 'bar',
                 marker: {
@@ -148,7 +156,7 @@
             });
             ridgeData.push({
                 x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-                y: [0.0000, 0.0225, 0.1591, 0.4985, 0.8687, 1.0000, 0.7218, 0.3109, 0.0743, 0.0091, 0.0006, 0.0000, 0.0000, 0.0000, 0.0000],
+                y: [0.0000, 0.0221, 0.1572, 0.4863, 0.8826, 1.0000, 0.7118, 0.3048, 0.0749, 0.0104, 0.0006, 0.0000, 0.0000, 0.0000, 0.0000],
                 base: 1.15,
                 type: 'bar',
                 marker: {
@@ -176,7 +184,7 @@
             });
             ridgeData.push({
                 x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-                y: [0.0000, 0.0000, 0.0000, 0.0131, 0.1247, 0.5212, 1.0000, 0.9989, 0.5611, 0.1708, 0.0221, 0.0008, 0.0000, 0.0000, 0.0000],
+                y: [0.0000, 0.0000, 0.0000, 0.0137, 0.1241, 0.5171, 0.9840, 1.0000, 0.5530, 0.1644, 0.0219, 0.0007, 0.0000, 0.0000, 0.0000],
                 base: 2.30,
                 type: 'bar',
                 marker: {
@@ -204,7 +212,7 @@
             });
             ridgeData.push({
                 x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-                y: [0.0000, 0.0000, 0.0021, 0.0428, 0.2411, 0.6310, 0.9908, 1.0000, 0.6552, 0.2658, 0.0624, 0.0067, 0.0000, 0.0000, 0.0000],
+                y: [0.0000, 0.0000, 0.0019, 0.0429, 0.2367, 0.6181, 0.9964, 1.0000, 0.6545, 0.2680, 0.0623, 0.0052, 0.0000, 0.0000, 0.0000],
                 base: 3.45,
                 type: 'bar',
                 marker: {
@@ -232,7 +240,7 @@
             });
             ridgeData.push({
                 x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-                y: [0.0005, 0.0144, 0.1230, 0.4353, 0.8546, 1.0000, 0.7222, 0.3319, 0.0985, 0.0184, 0.0015, 0.0001, 0.0000, 0.0000, 0.0000],
+                y: [0.0008, 0.0153, 0.1195, 0.4362, 0.8559, 1.0000, 0.7138, 0.3267, 0.0954, 0.0178, 0.0013, 0.0000, 0.0000, 0.0000, 0.0000],
                 base: 4.60,
                 type: 'bar',
                 marker: {
@@ -260,7 +268,7 @@
             });
             ridgeData.push({
                 x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-                y: [0.0000, 0.0000, 0.0000, 0.0019, 0.0243, 0.1904, 0.5982, 1.0000, 0.9703, 0.5921, 0.2297, 0.0554, 0.0054, 0.0001, 0.0000],
+                y: [0.0000, 0.0000, 0.0000, 0.0015, 0.0292, 0.1828, 0.6046, 1.0000, 0.9792, 0.5998, 0.2326, 0.0540, 0.0064, 0.0001, 0.0000],
                 base: 5.75,
                 type: 'bar',
                 marker: {
@@ -288,7 +296,7 @@
             });
             ridgeData.push({
                 x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-                y: [0.0000, 0.0000, 0.0010, 0.0178, 0.1382, 0.4844, 0.8649, 1.0000, 0.7767, 0.3641, 0.1074, 0.0178, 0.0019, 0.0000, 0.0000],
+                y: [0.0000, 0.0000, 0.0007, 0.0181, 0.1340, 0.4721, 0.8552, 1.0000, 0.7652, 0.3538, 0.1074, 0.0171, 0.0017, 0.0000, 0.0000],
                 base: 6.90,
                 type: 'bar',
                 marker: {
@@ -316,7 +324,7 @@
             });
             ridgeData.push({
                 x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-                y: [0.0000, 0.0000, 0.0000, 0.0000, 0.0012, 0.0316, 0.2293, 0.7195, 1.0000, 0.7320, 0.3169, 0.0787, 0.0111, 0.0005, 0.0000],
+                y: [0.0000, 0.0000, 0.0000, 0.0000, 0.0011, 0.0333, 0.2377, 0.7163, 1.0000, 0.7323, 0.3068, 0.0772, 0.0103, 0.0002, 0.0000],
                 base: 8.05,
                 type: 'bar',
                 marker: {
@@ -344,7 +352,7 @@
             });
             ridgeData.push({
                 x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-                y: [0.0000, 0.0000, 0.0000, 0.0000, 0.0002, 0.0063, 0.0550, 0.2547, 0.6659, 1.0000, 0.7366, 0.2432, 0.0502, 0.0000, 0.0000],
+                y: [0.0000, 0.0000, 0.0000, 0.0000, 0.0002, 0.0063, 0.0536, 0.2543, 0.6750, 1.0000, 0.7443, 0.2428, 0.0494, 0.0000, 0.0000],
                 base: 9.20,
                 type: 'bar',
                 marker: {
@@ -372,7 +380,7 @@
             });
             ridgeData.push({
                 x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-                y: [0.0000, 0.0000, 0.0000, 0.0000, 0.0001, 0.0034, 0.0388, 0.1971, 0.5632, 0.9905, 1.0000, 0.5597, 0.1493, 0.0113, 0.0000],
+                y: [0.0000, 0.0000, 0.0000, 0.0000, 0.0002, 0.0041, 0.0361, 0.1925, 0.5637, 0.9765, 1.0000, 0.5765, 0.1523, 0.0108, 0.0000],
                 base: 10.35,
                 type: 'bar',
                 marker: {
@@ -385,7 +393,7 @@
             });
             annotations.push({
                 x: 9,
-                y: 10.85,
+                y: 10.84,
                 text: '9.0',
                 showarrow: false,
                 font: { size: 10, color: 'white', weight: 'bold' }
@@ -418,7 +426,7 @@
         </script>
 
         <div class="footer">
-            Generated on 2026-01-04 11:54:39
+            Generated on 2026-01-04 13:09:35
         </div>
     </div>
 </body>

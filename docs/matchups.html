@@ -21,12 +21,23 @@
         .impact-table .team-name { text-align: left; font-weight: 500; }
         .playoffs-yes { color: var(--success-color); font-weight: 600; }
         .playoffs-no { color: var(--text-muted); }
-        .team-plot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 1.5rem; }
-        .team-plot-card { background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-        .team-plot-card h4 { margin: 0 0 0.5rem 0; color: var(--primary-color); }
-        .team-plot { height: 250px; }
-        .methodology { background: var(--background-color); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; }
+        .team-plot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1rem; }
+        .team-plot-card { background: white; border-radius: 8px; padding: 0.75rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .team-plot-card h4 { margin: 0 0 0.5rem 0; color: var(--primary-color); font-size: 0.9rem; }
+        .team-plot { height: 220px; }
+        .methodology { background: var(--background-color); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
         .methodology p { margin-bottom: 0.5rem; }
+        @media (max-width: 768px) {
+            .method-legend { gap: 0.75rem; font-size: 0.8rem; }
+            .method-dot { width: 10px; height: 10px; }
+            .cumulative-table, .impact-table { font-size: 0.7rem; }
+            .cumulative-table th, .cumulative-table td, .impact-table th, .impact-table td { padding: 0.3rem; }
+            .team-plot-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+            .team-plot-card { padding: 0.5rem; }
+            .team-plot-card h4 { font-size: 0.8rem; }
+            .team-plot { height: 180px; }
+            .methodology { padding: 0.75rem; font-size: 0.75rem; }
+        }
     </style>
 </head>
 <body>
@@ -312,7 +323,7 @@
         </script>
 
         <div class="footer">
-            Generated on 2026-01-04 11:54:39
+            Generated on 2026-01-04 13:09:34
         </div>
     </div>
 </body>

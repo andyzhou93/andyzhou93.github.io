@@ -110,19 +110,23 @@ function getTeamColors(numTeams) {
  */
 var defaultLayout = {
     font: {
-        family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+        family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        size: 11
     },
     paper_bgcolor: 'rgba(0,0,0,0)',
     plot_bgcolor: 'rgba(0,0,0,0)',
-    margin: { t: 50, r: 30, b: 50, l: 60 },
+    margin: { t: 30, r: 20, b: 80, l: 50 },
     hovermode: 'closest',
     legend: {
-        orientation: 'v',
-        x: 1.02,
-        y: 1,
+        orientation: 'h',
+        x: 0.5,
+        xanchor: 'center',
+        y: -0.15,
+        yanchor: 'top',
         bgcolor: 'rgba(255,255,255,0.9)',
         bordercolor: '#ddd',
-        borderwidth: 1
+        borderwidth: 1,
+        font: { size: 10 }
     }
 };
 
