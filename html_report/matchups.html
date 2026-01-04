@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lineup Setting Success - FOOBAW '25</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="js/highlight.js"></script>
+    <style>
+        .method-legend { display: flex; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .method-item { display: flex; align-items: center; gap: 0.5rem; }
+        .method-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .cumulative-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; overflow-x: auto; display: block; }
+        .cumulative-table th, .cumulative-table td { padding: 0.5rem; text-align: center; border: 1px solid var(--border-color); }
+        .cumulative-table th { background: var(--primary-color); color: white; font-weight: 600; }
+        .cumulative-table .method-label { text-align: left; font-weight: 600; background: var(--background-color); }
+        .impact-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .impact-table th, .impact-table td { padding: 0.5rem; text-align: center; border: 1px solid var(--border-color); }
+        .impact-table th { background: var(--primary-color); color: white; }
+        .impact-table .team-name { text-align: left; font-weight: 500; }
+        .playoffs-yes { color: var(--success-color); font-weight: 600; }
+        .playoffs-no { color: var(--text-muted); }
+        .team-plot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 1.5rem; }
+        .team-plot-card { background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .team-plot-card h4 { margin: 0 0 0.5rem 0; color: var(--primary-color); }
+        .team-plot { height: 250px; }
+        .methodology { background: var(--background-color); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; }
+        .methodology p { margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">FOOBAW '25</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="standings.html">Standings & Odds</a></li>
+                <li><a href="draft_analysis.html">Draft Analysis</a></li>
+                <li><a href="matchups.html" class="active">Lineup Success</a></li>
+                <li><a href="schedule_luck.html">Schedule Luck</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Lineup Setting Success</h1>
+            <p class="subtitle">How were we at actually managing our teams? Did we make good adds, drops, and trades (lol)? How about picking the best starters? How many points did we leave on our benches?</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h2>Scoring Scenarios</h2></div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">Let's play out some scenarios where we could have been better (or worse) about setting lineups. I considered four scenarios, in order of increasing points scored (or at least I'd expect that...):</p>
+            <div class="methodology">
+                <p><strong style="color: #9b59b6;">Draft Best Ball:</strong> Best ball scoring using only players from the original draft roster. No adds, drops, or trades reflected -- this is fully hands-off fantasy football.</p>
+                <p><strong style="color: #e74c3c;">Actual:</strong> The actual scores from the season based on our transactions and lineup decisions.</p>
+                <p><strong style="color: #3498db;">Actual Best Ball:</strong> Best ball scoring using each week's actual roster (including adds/drops). How could those bench points have helped?.</p>
+                <p><strong style="color: #2ecc71;">2-Week Pool:</strong> Best ball scoring using a combined pool of players from the current and previous week's rosters. Did you drop any guys that went off?</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h2>Weekly Scores by Team</h2></div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">Each chart shows a team's weekly score under the four different scoring scenarios. Here we might see the impact of injuries or more knowledge about how good players/teams actually were -- you'd think the Draft Best Ball scenario would start off strongest, but then fall off towards the end of the season.</p>
+            <div class="method-legend">
+                <div class="method-item"><div class="method-dot" style="background: #9b59b6;"></div>Draft Best Ball</div>
+                <div class="method-item"><div class="method-dot" style="background: #e74c3c;"></div>Actual</div>
+                <div class="method-item"><div class="method-dot" style="background: #3498db;"></div>Actual Best Ball</div>
+                <div class="method-item"><div class="method-dot" style="background: #2ecc71;"></div>2-Week Pool</div>
+            </div>
+            <div class="team-plot-grid">
+                <div class="team-plot-card">
+                    <h4>Super Ja’Marrio Bros (10-4)</h4>
+                    <div id="team-plot-5" class="team-plot"></div>
+                </div>
+                <div class="team-plot-card">
+                    <h4>Ja(x/cks)on Ja(x/cks) Off (9-5)</h4>
+                    <div id="team-plot-8" class="team-plot"></div>
+                </div>
+                <div class="team-plot-card">
+                    <h4>warr n breece (9-5)</h4>
+                    <div id="team-plot-1" class="team-plot"></div>
+                </div>
+                <div class="team-plot-card">
+                    <h4>OlaveGardenUnlimitedBateskicks (9-5)</h4>
+                    <div id="team-plot-4" class="team-plot"></div>
+                </div>
+                <div class="team-plot-card">
+                    <h4>Josh Allen a lil bish (8-6)</h4>
+                    <div id="team-plot-2" class="team-plot"></div>
+                </div>
+                <div class="team-plot-card">
+                    <h4>Full Court Prescott (6-8)</h4>
+                    <div id="team-plot-10" class="team-plot"></div>
+                </div>
+                <div class="team-plot-card">
+                    <h4>Jeanty and them (5-9)</h4>
+                    <div id="team-plot-9" class="team-plot"></div>
+                </div>
+                <div class="team-plot-card">
+                    <h4>Help my bois is Hurts (5-9)</h4>
+                    <div id="team-plot-7" class="team-plot"></div>
+                </div>
+                <div class="team-plot-card">
+                    <h4>Breece’s Pieces (5-9)</h4>
+                    <div id="team-plot-6" class="team-plot"></div>
+                </div>
+                <div class="team-plot-card">
+                    <h4>Waddle they think of next (4-10)</h4>
+                    <div id="team-plot-3" class="team-plot"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h2>Cumulative Season Points</h2></div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">Total points for each scenario after 14 weeks. Our best teams all had Actual > Draft Best Ball, but some of y'all were actively making your rosters worse??? I've also totaled the points left on bench, which is Actual Best Ball - Actual. </p>
+            <div style="overflow-x: auto;">
+                <table class="cumulative-table">
+                    <thead><tr><th>Method</th><th>Super Ja’Marrio Bros</th><th>Ja(x/cks)on Ja(x/cks) Off</th><th>warr n breece</th><th>OlaveGardenUnlimitedBateskicks</th><th>Josh Allen a lil bish</th><th>Full Court Prescott</th><th>Jeanty and them</th><th>Help my bois is Hurts</th><th>Breece’s Pieces</th><th>Waddle they think of next</th></tr></thead>
+                    <tbody>
+                        <tr><td class="method-label" style="color: #9b59b6;">Draft Best Ball</td><td>1495.0</td><td>1588.3</td><td>1493.0</td><td>1567.9</td><td>1668.6</td><td>1592.0</td><td>1632.8</td><td>1453.0</td><td>1470.7</td><td>1508.7</td></tr>
+                        <tr><td class="method-label" style="color: #e74c3c;">Actual</td><td>1666.1</td><td>1627.4</td><td>1587.6</td><td>1570.4</td><td>1577.3</td><td>1380.8</td><td>1501.6</td><td>1487.0</td><td>1355.6</td><td>1455.5</td></tr>
+                        <tr><td class="method-label" style="color: #3498db;">Actual Best Ball</td><td>1833.7</td><td>1901.3</td><td>1781.6</td><td>1710.4</td><td>1793.4</td><td>1670.0</td><td>1728.3</td><td>1695.7</td><td>1562.8</td><td>1670.9</td></tr>
+                        <tr><td class="method-label" style="color: #2ecc71;">2-Week Pool</td><td>1860.0</td><td>1957.6</td><td>1818.6</td><td>1714.7</td><td>1817.7</td><td>1679.0</td><td>1738.9</td><td>1768.2</td><td>1591.0</td><td>1693.5</td></tr>
+                        <tr><td class="method-label">Points Left on Bench</td><td>167.6</td><td>273.9</td><td>194.0</td><td>140.0</td><td>216.1</td><td>289.2</td><td>226.7</td><td>208.7</td><td>207.2</td><td>215.4</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h2>Impact on Individual Team Record</h2></div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">What would each team's record be if <em>only they</em> used each scoring method (while all opponents kept their actual scores)? Most teams would have made it in, except for Shalini's Draft Best Ball team -- your bois really was Hurts... </p>
+            <div style="overflow-x: auto;">
+                <table class="impact-table">
+                    <thead><tr><th>Team</th><th colspan="2" style="color: #9b59b6;">Draft Best Ball</th><th colspan="2" style="color: #e74c3c;">Actual</th><th colspan="2" style="color: #3498db;">Actual Best Ball</th><th colspan="2" style="color: #2ecc71;">2-Week Pool</th></tr>
+                    <tr><th></th><th>Record</th><th>Standing</th><th>Record</th><th>Standing</th><th>Record</th><th>Standing</th><th>Record</th><th>Standing</th></tr></thead>
+                    <tbody>
+                        <tr><td class="team-name">Super Ja’Marrio Bros</td><td>7-7</td><td class="playoffs-yes">5th</td><td>10-4</td><td class="playoffs-yes">1st</td><td>12-2</td><td class="playoffs-yes">1st</td><td>12-2</td><td class="playoffs-yes">1st</td></tr>
+                        <tr><td class="team-name">Ja(x/cks)on Ja(x/cks) Off</td><td>9-5</td><td class="playoffs-yes">2nd</td><td>9-5</td><td class="playoffs-yes">2nd</td><td>11-3</td><td class="playoffs-yes">1st</td><td>11-3</td><td class="playoffs-yes">1st</td></tr>
+                        <tr><td class="team-name">warr n breece</td><td>6-8</td><td class="playoffs-yes">6th</td><td>9-5</td><td class="playoffs-yes">3rd</td><td>11-3</td><td class="playoffs-yes">1st</td><td>11-3</td><td class="playoffs-yes">1st</td></tr>
+                        <tr><td class="team-name">OlaveGardenUnlimitedBateskicks</td><td>9-5</td><td class="playoffs-yes">4th</td><td>9-5</td><td class="playoffs-yes">4th</td><td>9-5</td><td class="playoffs-yes">2nd</td><td>9-5</td><td class="playoffs-yes">2nd</td></tr>
+                        <tr><td class="team-name">Josh Allen a lil bish</td><td>9-5</td><td class="playoffs-yes">1st</td><td>8-6</td><td class="playoffs-yes">5th</td><td>11-3</td><td class="playoffs-yes">1st</td><td>11-3</td><td class="playoffs-yes">1st</td></tr>
+                        <tr><td class="team-name">Full Court Prescott</td><td>7-7</td><td class="playoffs-yes">6th</td><td>6-8</td><td class="playoffs-yes">6th</td><td>9-5</td><td class="playoffs-yes">2nd</td><td>9-5</td><td class="playoffs-yes">2nd</td></tr>
+                        <tr><td class="team-name">Jeanty and them</td><td>7-7</td><td class="playoffs-yes">6th</td><td>5-9</td><td class="playoffs-no">7th</td><td>11-3</td><td class="playoffs-yes">1st</td><td>11-3</td><td class="playoffs-yes">1st</td></tr>
+                        <tr><td class="team-name">Help my bois is Hurts</td><td>4-10</td><td class="playoffs-no">9th</td><td>5-9</td><td class="playoffs-no">8th</td><td>9-5</td><td class="playoffs-yes">2nd</td><td>9-5</td><td class="playoffs-yes">2nd</td></tr>
+                        <tr><td class="team-name">Breece’s Pieces</td><td>7-7</td><td class="playoffs-yes">6th</td><td>5-9</td><td class="playoffs-no">9th</td><td>7-7</td><td class="playoffs-yes">6th</td><td>7-7</td><td class="playoffs-yes">5th</td></tr>
+                        <tr><td class="team-name">Waddle they think of next</td><td>7-7</td><td class="playoffs-yes">6th</td><td>4-10</td><td class="playoffs-no">10th</td><td>8-6</td><td class="playoffs-yes">2nd</td><td>9-5</td><td class="playoffs-yes">1st</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h2>League-Wide Standings by Scoring Method</h2></div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">What would the final standings be if <em>all teams</em> used each scoring method? Only 3 teams (Ja(x/cks)on Ja(x/cks) Off, warr n breece, and Josh Allen a lil bish) would have made it for all scenarios -- Anju that ain't exactly Diamond tier drafting...</p>
+            <div style="overflow-x: auto;">
+                <table class="impact-table">
+                    <thead><tr><th>Team</th><th colspan="2" style="color: #9b59b6;">Draft Best Ball</th><th colspan="2" style="color: #e74c3c;">Actual</th><th colspan="2" style="color: #3498db;">Actual Best Ball</th><th colspan="2" style="color: #2ecc71;">2-Week Pool</th></tr>
+                    <tr><th></th><th>Record</th><th>Standing</th><th>Record</th><th>Standing</th><th>Record</th><th>Standing</th><th>Record</th><th>Standing</th></tr></thead>
+                    <tbody>
+                        <tr><td class="team-name">Super Ja’Marrio Bros</td><td>4-10</td><td class="playoffs-no">10th</td><td>10-4</td><td class="playoffs-yes">1st</td><td>9-5</td><td class="playoffs-yes">2nd</td><td>9-5</td><td class="playoffs-yes">2nd</td></tr>
+                        <tr><td class="team-name">Ja(x/cks)on Ja(x/cks) Off</td><td>8-6</td><td class="playoffs-yes">3rd</td><td>9-5</td><td class="playoffs-yes">2nd</td><td>10-4</td><td class="playoffs-yes">1st</td><td>10-4</td><td class="playoffs-yes">1st</td></tr>
+                        <tr><td class="team-name">warr n breece</td><td>7-7</td><td class="playoffs-yes">6th</td><td>9-5</td><td class="playoffs-yes">3rd</td><td>9-5</td><td class="playoffs-yes">3rd</td><td>9-5</td><td class="playoffs-yes">3rd</td></tr>
+                        <tr><td class="team-name">OlaveGardenUnlimitedBateskicks</td><td>7-7</td><td class="playoffs-yes">5th</td><td>9-5</td><td class="playoffs-yes">4th</td><td>6-8</td><td class="playoffs-no">8th</td><td>5-9</td><td class="playoffs-no">8th</td></tr>
+                        <tr><td class="team-name">Josh Allen a lil bish</td><td>10-4</td><td class="playoffs-yes">1st</td><td>8-6</td><td class="playoffs-yes">5th</td><td>7-7</td><td class="playoffs-yes">5th</td><td>7-7</td><td class="playoffs-yes">5th</td></tr>
+                        <tr><td class="team-name">Full Court Prescott</td><td>6-8</td><td class="playoffs-no">7th</td><td>6-8</td><td class="playoffs-yes">6th</td><td>8-6</td><td class="playoffs-yes">4th</td><td>8-6</td><td class="playoffs-yes">4th</td></tr>
+                        <tr><td class="team-name">Jeanty and them</td><td>9-5</td><td class="playoffs-yes">2nd</td><td>5-9</td><td class="playoffs-no">7th</td><td>6-8</td><td class="playoffs-no">7th</td><td>6-8</td><td class="playoffs-no">7th</td></tr>
+                        <tr><td class="team-name">Help my bois is Hurts</td><td>5-9</td><td class="playoffs-no">9th</td><td>5-9</td><td class="playoffs-no">8th</td><td>7-7</td><td class="playoffs-yes">6th</td><td>6-8</td><td class="playoffs-yes">6th</td></tr>
+                        <tr><td class="team-name">Breece’s Pieces</td><td>6-8</td><td class="playoffs-no">8th</td><td>5-9</td><td class="playoffs-no">9th</td><td>4-10</td><td class="playoffs-no">10th</td><td>5-9</td><td class="playoffs-no">10th</td></tr>
+                        <tr><td class="team-name">Waddle they think of next</td><td>8-6</td><td class="playoffs-yes">4th</td><td>4-10</td><td class="playoffs-no">10th</td><td>4-10</td><td class="playoffs-no">9th</td><td>5-9</td><td class="playoffs-no">9th</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script>
+            var config = { responsive: true, displaylogo: false, displayModeBar: false };
+
+            Plotly.newPlot("team-plot-5", [
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [131.2,144.2,130.3,124.4,110.5,109.2,96.9,136.5,107.9,94.4,76.7,57.8,84.4,90.6], name: "Draft Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#9b59b6", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [122.0,133.8,127.0,97.6,138.7,126.0,113.0,143.2,125.7,122.7,94.1,104.1,102.6,115.6], name: "Actual", type: "scatter", mode: "lines+markers", line: {color: "#e74c3c", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [131.2,139.3,136.3,124.4,144.1,139.9,115.3,155.2,130.2,135.4,130.2,109.5,105.9,136.9], name: "Actual Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#3498db", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [131.2,144.2,136.3,124.4,144.1,147.5,115.3,159.2,130.2,144.9,130.2,109.8,105.9,136.9], name: "2-Week Pool", type: "scatter", mode: "lines+markers", line: {color: "#2ecc71", width: 2}, marker: {size: 5} }
+            ], {
+                xaxis: { title: "Week", tickmode: "linear", tick0: 1, dtick: 2, range: [0.5, 14.5] },
+                yaxis: { title: "Points" },
+                margin: { t: 10, r: 10, b: 40, l: 50 },
+                showlegend: false,
+                hovermode: "closest"
+            }, config);
+
+            Plotly.newPlot("team-plot-8", [
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [132.5,143.2,131.0,121.3,110.4,113.5,123.6,91.2,111.7,100.7,87.9,120.7,101.5,99.1], name: "Draft Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#9b59b6", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [120.1,105.1,113.9,103.8,137.1,143.7,140.9,87.2,122.0,80.2,111.5,122.8,110.4,128.7], name: "Actual", type: "scatter", mode: "lines+markers", line: {color: "#e74c3c", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [132.5,137.9,135.6,117.7,149.8,152.6,176.8,123.7,145.0,96.7,125.0,130.7,139.0,138.3], name: "Actual Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#3498db", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [132.5,147.2,140.9,117.7,156.8,160.1,176.8,132.7,151.1,98.7,135.0,130.7,139.0,138.3], name: "2-Week Pool", type: "scatter", mode: "lines+markers", line: {color: "#2ecc71", width: 2}, marker: {size: 5} }
+            ], {
+                xaxis: { title: "Week", tickmode: "linear", tick0: 1, dtick: 2, range: [0.5, 14.5] },
+                yaxis: { title: "Points" },
+                margin: { t: 10, r: 10, b: 40, l: 50 },
+                showlegend: false,
+                hovermode: "closest"
+            }, config);
+
+            Plotly.newPlot("team-plot-1", [
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [105.9,117.0,75.2,95.7,106.5,139.2,112.5,139.4,141.7,96.6,88.5,66.9,106.1,101.7], name: "Draft Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#9b59b6", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [94.4,104.1,66.9,116.8,100.8,138.1,93.4,158.6,145.2,131.9,129.1,88.3,106.4,113.4], name: "Actual", type: "scatter", mode: "lines+markers", line: {color: "#e74c3c", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [118.9,129.0,89.3,131.0,110.5,145.2,122.5,172.7,145.7,134.6,135.2,99.8,122.9,124.2], name: "Actual Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#3498db", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [118.9,129.0,89.3,131.0,110.5,147.2,122.5,172.7,152.7,147.6,135.2,104.8,122.9,134.2], name: "2-Week Pool", type: "scatter", mode: "lines+markers", line: {color: "#2ecc71", width: 2}, marker: {size: 5} }
+            ], {
+                xaxis: { title: "Week", tickmode: "linear", tick0: 1, dtick: 2, range: [0.5, 14.5] },
+                yaxis: { title: "Points" },
+                margin: { t: 10, r: 10, b: 40, l: 50 },
+                showlegend: false,
+                hovermode: "closest"
+            }, config);
+
+            Plotly.newPlot("team-plot-4", [
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [121.4,137.6,102.7,110.8,130.7,105.7,152.7,74.6,115.6,94.8,100.8,117.9,109.4,93.2], name: "Draft Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#9b59b6", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [100.6,128.6,89.0,103.8,126.7,109.0,160.0,91.0,116.9,105.6,99.5,142.5,100.7,96.5], name: "Actual", type: "scatter", mode: "lines+markers", line: {color: "#e74c3c", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [121.4,137.6,110.8,132.7,126.7,111.3,168.5,91.0,121.0,119.5,105.6,147.9,113.2,103.2], name: "Actual Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#3498db", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [121.4,137.6,110.8,132.7,126.7,111.3,168.5,91.0,125.0,119.5,105.9,147.9,113.2,103.2], name: "2-Week Pool", type: "scatter", mode: "lines+markers", line: {color: "#2ecc71", width: 2}, marker: {size: 5} }
+            ], {
+                xaxis: { title: "Week", tickmode: "linear", tick0: 1, dtick: 2, range: [0.5, 14.5] },
+                yaxis: { title: "Points" },
+                margin: { t: 10, r: 10, b: 40, l: 50 },
+                showlegend: false,
+                hovermode: "closest"
+            }, config);
+
+            Plotly.newPlot("team-plot-2", [
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [143.4,155.8,120.7,150.4,128.2,76.0,116.6,110.0,100.1,100.3,112.6,138.2,79.4,136.9], name: "Draft Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#9b59b6", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [114.9,121.3,109.3,137.5,108.5,80.4,112.6,96.0,89.8,122.5,134.5,116.6,89.2,144.0], name: "Actual", type: "scatter", mode: "lines+markers", line: {color: "#e74c3c", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [143.4,155.0,120.7,156.4,147.9,90.0,114.0,101.2,103.9,128.2,134.5,146.8,96.6,154.8], name: "Actual Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#3498db", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [143.4,157.0,121.0,156.4,147.9,90.0,114.0,105.2,105.9,131.2,134.5,146.8,109.6,154.8], name: "2-Week Pool", type: "scatter", mode: "lines+markers", line: {color: "#2ecc71", width: 2}, marker: {size: 5} }
+            ], {
+                xaxis: { title: "Week", tickmode: "linear", tick0: 1, dtick: 2, range: [0.5, 14.5] },
+                yaxis: { title: "Points" },
+                margin: { t: 10, r: 10, b: 40, l: 50 },
+                showlegend: false,
+                hovermode: "closest"
+            }, config);
+
+            Plotly.newPlot("team-plot-10", [
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [86.4,116.4,154.4,121.9,128.1,105.9,129.6,93.2,112.7,88.4,97.9,94.2,152.5,110.5], name: "Draft Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#9b59b6", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [76.3,85.3,123.9,101.8,84.7,107.1,116.8,122.3,103.1,115.3,83.7,82.2,112.1,66.1], name: "Actual", type: "scatter", mode: "lines+markers", line: {color: "#e74c3c", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [86.4,116.4,154.4,121.9,128.1,110.9,140.3,122.3,110.7,115.3,113.1,105.9,130.9,113.5], name: "Actual Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#3498db", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [86.4,116.4,154.4,121.9,128.1,110.9,149.3,122.3,110.7,115.3,113.1,105.9,130.9,113.5], name: "2-Week Pool", type: "scatter", mode: "lines+markers", line: {color: "#2ecc71", width: 2}, marker: {size: 5} }
+            ], {
+                xaxis: { title: "Week", tickmode: "linear", tick0: 1, dtick: 2, range: [0.5, 14.5] },
+                yaxis: { title: "Points" },
+                margin: { t: 10, r: 10, b: 40, l: 50 },
+                showlegend: false,
+                hovermode: "closest"
+            }, config);
+
+            Plotly.newPlot("team-plot-9", [
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [89.0,96.2,132.0,162.2,136.8,128.1,111.0,92.6,131.8,122.4,119.6,101.3,93.5,116.3], name: "Draft Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#9b59b6", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [61.3,92.6,125.0,156.3,129.9,121.6,64.7,105.5,134.4,113.9,108.1,101.9,85.3,101.1], name: "Actual", type: "scatter", mode: "lines+markers", line: {color: "#e74c3c", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [89.0,98.9,133.0,162.2,141.6,128.1,111.3,105.5,139.0,139.7,132.4,127.3,102.3,118.0], name: "Actual Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#3498db", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [89.0,98.9,133.0,162.2,141.6,128.1,111.3,116.1,139.0,139.7,132.4,127.3,102.3,118.0], name: "2-Week Pool", type: "scatter", mode: "lines+markers", line: {color: "#2ecc71", width: 2}, marker: {size: 5} }
+            ], {
+                xaxis: { title: "Week", tickmode: "linear", tick0: 1, dtick: 2, range: [0.5, 14.5] },
+                yaxis: { title: "Points" },
+                margin: { t: 10, r: 10, b: 40, l: 50 },
+                showlegend: false,
+                hovermode: "closest"
+            }, config);
+
+            Plotly.newPlot("team-plot-7", [
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [121.8,131.4,105.1,99.8,73.8,86.3,112.2,76.6,78.7,111.3,109.4,138.3,122.1,86.1], name: "Draft Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#9b59b6", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [107.5,122.3,97.5,105.1,69.4,79.5,111.1,123.2,84.3,123.1,96.4,154.1,120.3,93.1], name: "Actual", type: "scatter", mode: "lines+markers", line: {color: "#e74c3c", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [121.8,145.2,106.3,138.8,73.2,98.5,113.6,133.1,109.0,139.9,102.8,161.1,146.4,105.9], name: "Actual Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#3498db", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [121.8,145.2,119.3,138.8,82.9,119.8,118.2,133.1,118.0,154.8,102.8,161.1,146.4,105.9], name: "2-Week Pool", type: "scatter", mode: "lines+markers", line: {color: "#2ecc71", width: 2}, marker: {size: 5} }
+            ], {
+                xaxis: { title: "Week", tickmode: "linear", tick0: 1, dtick: 2, range: [0.5, 14.5] },
+                yaxis: { title: "Points" },
+                margin: { t: 10, r: 10, b: 40, l: 50 },
+                showlegend: false,
+                hovermode: "closest"
+            }, config);
+
+            Plotly.newPlot("team-plot-6", [
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [124.2,93.7,120.6,135.7,113.9,78.6,93.5,101.2,69.5,119.9,120.3,77.0,105.9,116.7], name: "Draft Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#9b59b6", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [99.5,83.3,112.6,117.7,90.2,81.8,82.6,106.4,101.1,91.4,100.5,81.9,89.5,117.0], name: "Actual", type: "scatter", mode: "lines+markers", line: {color: "#e74c3c", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [124.2,93.7,120.5,135.7,113.9,81.8,97.3,125.3,103.2,119.4,114.2,88.7,127.9,117.0], name: "Actual Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#3498db", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [124.2,93.7,120.5,135.7,113.9,81.8,97.3,137.9,108.8,129.4,114.2,88.7,127.9,117.0], name: "2-Week Pool", type: "scatter", mode: "lines+markers", line: {color: "#2ecc71", width: 2}, marker: {size: 5} }
+            ], {
+                xaxis: { title: "Week", tickmode: "linear", tick0: 1, dtick: 2, range: [0.5, 14.5] },
+                yaxis: { title: "Points" },
+                margin: { t: 10, r: 10, b: 40, l: 50 },
+                showlegend: false,
+                hovermode: "closest"
+            }, config);
+
+            Plotly.newPlot("team-plot-3", [
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [119.9,115.5,104.0,124.2,134.7,109.5,95.4,107.1,104.5,114.7,117.9,66.0,97.7,97.5], name: "Draft Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#9b59b6", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [68.1,98.5,86.1,118.5,128.3,118.2,120.8,105.9,101.1,128.2,103.0,108.4,87.7,82.6], name: "Actual", type: "scatter", mode: "lines+markers", line: {color: "#e74c3c", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [119.9,115.5,139.8,134.5,133.7,119.4,130.2,118.7,111.6,128.2,113.4,115.3,99.1,91.5], name: "Actual Best Ball", type: "scatter", mode: "lines+markers", line: {color: "#3498db", width: 2}, marker: {size: 5} },
+                { x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14], y: [119.9,115.5,139.8,139.5,139.7,125.4,130.2,118.7,111.6,128.2,113.4,115.3,99.1,97.1], name: "2-Week Pool", type: "scatter", mode: "lines+markers", line: {color: "#2ecc71", width: 2}, marker: {size: 5} }
+            ], {
+                xaxis: { title: "Week", tickmode: "linear", tick0: 1, dtick: 2, range: [0.5, 14.5] },
+                yaxis: { title: "Points" },
+                margin: { t: 10, r: 10, b: 40, l: 50 },
+                showlegend: false,
+                hovermode: "closest"
+            }, config);
+
+        </script>
+
+        <div class="footer">
+            Generated on 2026-01-03 19:22:46
+        </div>
+    </div>
+</body>
+</html>

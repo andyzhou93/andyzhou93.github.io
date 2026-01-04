@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standings & Playoff Odds - FOOBAW '25</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="js/highlight.js"></script>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">FOOBAW '25</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="standings.html" class="active">Standings & Odds</a></li>
+                <li><a href="draft_analysis.html">Draft Analysis</a></li>
+                <li><a href="matchups.html">Lineup Success</a></li>
+                <li><a href="schedule_luck.html">Schedule Luck</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Standings & Playoff Odds Progression</h1>
+            <p class="subtitle">How things evolved throughout the season</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h2>Weekly Standings</h2></div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">Cumulative standings based on win percentage and total points scored (tiebreaker). Congrats to Chris's team as the only one other than Anju's to be top seed at some point.</p>
+            <div id="standings-plot" class="plot-container"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h2>Playoff Probability (Top 6)</h2></div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">Monte Carlo simulation (100,000 trials) of each team's probability to finish in the top 6 and make the playoffs, calculated after each week. Our only Diamond rated team was of course a juggernaut, basically locking it up (>99%) by week 6. No one was truly eliminated until week 12, though Esther was basically out of it (<1%) by week 10. Shoutout to Harrison who missed the playoffs while having >84% chance of making it in week 5, while Jackie snuck in despite hanging out in the 30's and 40's for most of the season.</p>
+            <div id="playoff-plot" class="plot-container"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h2>First-Round Bye Probability (Top 2)</h2></div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">Probability of finishing in the top 2 seeds and earning a first-round bye in the playoffs.</p>
+            <div id="bye-plot" class="plot-container"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h2>First Seed Probability</h2></div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">Probability of getting that home-field advantage. Anju, you should be proud :)</p>
+            <div id="first-seed-plot" class="plot-container"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h2>Second Seed Probability</h2></div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">Haha actually between Anju and I, whoever ended up in second seed actually would go on to win the championship. Should've thrown a few games...</p>
+            <div id="second-seed-plot" class="plot-container"></div>
+        </div>
+    </div>
+
+    <script>
+        var config = { responsive: true, displaylogo: false };
+
+        // Standings chart
+        var standingsTraces = [{
+    "x": [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [1,1,1,2,1,1,1,1,1,1,1,1,1,1],
+    "name": "Super Ja’Marrio Bros (10-4)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(52,152,219)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [2,3,4,5,4,2,2,2,2,3,3,2,2,2],
+    "name": "Ja(x/cks)on Ja(x/cks) Off (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(72,144,201)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [5,4,5,4,6,4,4,4,3,2,2,4,4,3],
+    "name": "warr n breece (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(92,135,184)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [4,2,2,3,2,3,3,3,4,4,4,3,3,4],
+    "name": "OlaveGardenUnlimitedBateskicks (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(112,127,166)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [3,5,3,1,3,6,5,7,6,5,5,5,5,5],
+    "name": "Josh Allen a lil bish (8-6)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(132,118,148)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [8,9,7,7,7,7,8,6,8,6,6,6,6,6],
+    "name": "Full Court Prescott (6-8)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(151,110,131)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10,10,8,6,5,5,6,8,5,7,7,7,8,7],
+    "name": "Jeanty and them (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(171,101,113)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [6,6,6,8,9,10,10,9,9,9,9,9,7,8],
+    "name": "Help my bois is Hurts (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(191,93,95)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [7,7,9,10,8,9,9,10,10,10,10,10,10,9],
+    "name": "Breece’s Pieces (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(211,84,78)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [9,8,10,9,10,8,7,5,7,8,8,8,9,10],
+    "name": "Waddle they think of next (4-10)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(231,76,60)", "width": 2},
+    "marker": {"size": 6}
+}];
+        var standingsLayout = {
+            xaxis: {
+                title: "Week",
+                tickmode: "linear",
+                tick0: 1,
+                dtick: 1,
+                range: [0.5, 14.5]
+            },
+            yaxis: {
+                title: "Standing",
+                autorange: "reversed",
+                tickmode: "linear",
+                tick0: 1,
+                dtick: 1,
+                range: [10.5, 0.5]
+            },
+            shapes: [{
+                type: "line",
+                x0: 0.5, x1: 14.5,
+                y0: 6.5, y1: 6.5,
+                line: { color: "rgba(0,0,0,0.3)", width: 2, dash: "dash" }
+            }],
+            annotations: [{
+                x: 14.3, y: 6.5,
+                text: "Playoff Cutoff",
+                showarrow: false,
+                font: { size: 10, color: "rgba(0,0,0,0.5)" }
+            }],
+            hovermode: "closest",
+            legend: { x: 1.02, y: 1 },
+            margin: { t: 20, r: 150, b: 50, l: 60 }
+        };
+        Plotly.newPlot("standings-plot", standingsTraces, standingsLayout, config).then(function() {
+            setupHighlight("standings-plot");
+        });
+
+        // Odds charts
+        var oddsLayout = {
+            xaxis: {
+                title: "Week",
+                tickmode: "linear",
+                tick0: 0,
+                dtick: 1,
+                range: [-0.5, 14.5]
+            },
+            yaxis: {
+                title: "Probability (%)",
+                range: [0, 105]
+            },
+            hovermode: "closest",
+            legend: { x: 1.02, y: 1 },
+            margin: { t: 20, r: 150, b: 50, l: 60 }
+        };
+
+        var playoffTraces = [{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [60.0,78.9,92.0,97.0,92.5,97.9,99.6,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0],
+    "name": "Super Ja’Marrio Bros (10-4)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(52,152,219)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [60.0,78.7,85.9,82.8,68.8,87.6,96.6,99.3,97.9,99.4,97.0,99.9,100.0,100.0,100.0],
+    "name": "Ja(x/cks)on Ja(x/cks) Off (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(72,144,201)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [60.0,68.7,77.2,56.2,67.2,56.6,77.6,70.9,88.4,97.2,99.3,100.0,100.0,100.0,100.0],
+    "name": "warr n breece (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(92,135,184)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [60.0,72.5,87.4,89.5,80.4,91.8,89.7,98.3,94.8,94.6,95.7,99.5,100.0,100.0,100.0],
+    "name": "OlaveGardenUnlimitedBateskicks (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(112,127,166)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [60.0,75.6,75.3,84.2,92.3,89.5,75.7,73.1,50.6,58.0,73.9,97.3,100.0,100.0,100.0],
+    "name": "Josh Allen a lil bish (8-6)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(132,118,148)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [60.0,41.9,25.2,42.7,47.7,29.6,38.6,35.4,51.3,35.2,52.5,44.2,35.2,80.3,100.0],
+    "name": "Full Court Prescott (6-8)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(151,110,131)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [60.0,35.5,22.3,40.7,66.8,84.5,78.0,59.4,42.8,67.2,45.6,35.1,29.4,0.0,0.0],
+    "name": "Jeanty and them (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(171,101,113)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [60.0,57.8,75.2,63.7,44.0,21.0,7.0,5.6,11.4,3.7,7.9,5.0,21.2,19.7,0.0],
+    "name": "Help my bois is Hurts (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(191,93,95)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [60.0,52.5,33.2,28.6,19.4,21.3,6.3,7.5,2.7,1.0,0.0,0.2,0.0,0.0,0.0],
+    "name": "Breece’s Pieces (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(211,84,78)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [60.0,37.8,26.3,14.6,21.0,20.2,30.9,50.6,60.1,43.6,27.9,18.8,14.3,0.0,0.0],
+    "name": "Waddle they think of next (4-10)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(231,76,60)", "width": 2},
+    "marker": {"size": 6}
+}];
+        Plotly.newPlot("playoff-plot", playoffTraces, oddsLayout, config).then(function() {
+            setupHighlight("playoff-plot");
+        });
+
+        var byeTraces = [{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [20.0,34.7,50.5,68.7,53.0,67.4,83.9,83.9,98.1,99.7,99.6,97.5,99.2,91.4,100.0],
+    "name": "Super Ja’Marrio Bros (10-4)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(52,152,219)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [20.0,34.5,35.1,27.9,17.4,28.3,50.2,64.8,50.4,57.8,25.0,22.9,39.9,64.5,100.0],
+    "name": "Ja(x/cks)on Ja(x/cks) Off (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(72,144,201)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [20.0,23.5,23.5,9.3,16.8,7.1,13.7,4.1,18.1,27.4,54.4,64.6,29.7,11.4,0.0],
+    "name": "warr n breece (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(92,135,184)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [20.0,27.0,38.0,40.4,28.2,37.5,22.7,40.2,26.0,11.6,18.2,12.3,29.6,32.7,0.0],
+    "name": "OlaveGardenUnlimitedBateskicks (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(112,127,166)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [20.0,30.7,22.0,30.0,52.5,32.7,10.1,2.6,1.0,0.5,1.5,2.7,1.6,0.0,0.0],
+    "name": "Josh Allen a lil bish (8-6)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(132,118,148)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [20.0,8.4,2.1,4.9,7.2,1.8,2.3,0.5,1.9,0.2,0.3,0.0,0.0,0.0,0.0],
+    "name": "Full Court Prescott (6-8)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(151,110,131)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [20.0,6.2,1.8,4.5,15.7,23.1,15.8,2.7,1.6,2.4,0.9,0.0,0.0,0.0,0.0],
+    "name": "Jeanty and them (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(171,101,113)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [20.0,15.4,21.2,11.4,6.1,0.8,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
+    "name": "Help my bois is Hurts (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(191,93,95)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [20.0,12.8,3.4,2.1,1.3,0.8,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
+    "name": "Breece’s Pieces (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(211,84,78)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [20.0,6.9,2.4,0.7,1.7,0.7,1.2,1.1,2.9,0.4,0.1,0.0,0.0,0.0,0.0],
+    "name": "Waddle they think of next (4-10)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(231,76,60)", "width": 2},
+    "marker": {"size": 6}
+}];
+        Plotly.newPlot("bye-plot", byeTraces, oddsLayout, config).then(function() {
+            setupHighlight("bye-plot");
+        });
+
+        var firstSeedTraces = [{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,18.8,29.6,46.5,30.9,45.0,63.0,57.0,90.3,96.3,95.3,80.0,92.7,76.3,100.0],
+    "name": "Super Ja’Marrio Bros (10-4)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(52,152,219)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,18.8,17.8,11.6,7.1,11.6,19.5,27.8,5.3,2.6,0.5,2.2,2.9,16.0,0.0],
+    "name": "Ja(x/cks)on Ja(x/cks) Off (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(72,144,201)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,11.8,10.9,3.1,7.0,2.3,3.9,0.5,1.2,1.0,3.8,16.5,2.5,0.1,0.0],
+    "name": "warr n breece (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(92,135,184)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,13.4,19.7,19.1,12.9,17.2,6.6,13.8,2.9,0.2,0.4,1.3,1.9,7.6,0.0],
+    "name": "OlaveGardenUnlimitedBateskicks (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(112,127,166)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,16.6,9.8,12.6,30.9,14.1,2.3,0.3,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
+    "name": "Josh Allen a lil bish (8-6)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(132,118,148)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,3.2,0.6,1.5,2.5,0.4,0.5,0.1,0.1,0.0,0.0,0.0,0.0,0.0,0.0],
+    "name": "Full Court Prescott (6-8)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(151,110,131)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,2.3,0.5,1.2,6.0,8.8,4.1,0.3,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
+    "name": "Jeanty and them (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(171,101,113)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,6.7,9.2,3.7,2.0,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
+    "name": "Help my bois is Hurts (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(191,93,95)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,5.6,1.1,0.5,0.3,0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
+    "name": "Breece’s Pieces (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(211,84,78)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,2.7,0.7,0.2,0.5,0.1,0.2,0.1,0.1,0.0,0.0,0.0,0.0,0.0,0.0],
+    "name": "Waddle they think of next (4-10)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(231,76,60)", "width": 2},
+    "marker": {"size": 6}
+}];
+        Plotly.newPlot("first-seed-plot", firstSeedTraces, oddsLayout, config).then(function() {
+            setupHighlight("first-seed-plot");
+        });
+
+        var secondSeedTraces = [{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,15.9,20.9,22.2,22.2,22.4,20.9,26.9,7.8,3.4,4.3,17.6,6.5,15.1,0.0],
+    "name": "Super Ja’Marrio Bros (10-4)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(52,152,219)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,15.7,17.3,16.4,10.3,16.7,30.8,37.0,45.1,55.3,24.4,20.7,37.0,48.5,100.0],
+    "name": "Ja(x/cks)on Ja(x/cks) Off (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(72,144,201)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,11.7,12.7,6.2,9.8,4.8,9.8,3.6,16.9,26.4,50.6,48.1,27.2,11.3,0.0],
+    "name": "warr n breece (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(92,135,184)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,13.6,18.3,21.3,15.3,20.2,16.1,26.4,23.0,11.4,17.9,11.1,27.7,25.1,0.0],
+    "name": "OlaveGardenUnlimitedBateskicks (9-5)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(112,127,166)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,14.0,12.2,17.4,21.6,18.6,7.9,2.3,1.0,0.5,1.5,2.6,1.6,0.0,0.0],
+    "name": "Josh Allen a lil bish (8-6)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(132,118,148)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,5.1,1.5,3.4,4.7,1.3,1.8,0.5,1.8,0.2,0.3,0.0,0.0,0.0,0.0],
+    "name": "Full Court Prescott (6-8)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(151,110,131)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,3.8,1.3,3.2,9.7,14.2,11.6,2.3,1.6,2.4,0.9,0.0,0.0,0.0,0.0],
+    "name": "Jeanty and them (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(171,101,113)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,8.6,12.0,7.7,4.1,0.6,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
+    "name": "Help my bois is Hurts (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(191,93,95)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,7.2,2.3,1.6,1.0,0.6,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
+    "name": "Breece’s Pieces (5-9)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(211,84,78)", "width": 2},
+    "marker": {"size": 6}
+},{
+    "x": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "y": [10.0,4.2,1.6,0.6,1.2,0.6,1.0,1.0,2.7,0.4,0.1,0.0,0.0,0.0,0.0],
+    "name": "Waddle they think of next (4-10)",
+    "type": "scatter",
+    "mode": "lines+markers",
+    "line": {"color": "rgb(231,76,60)", "width": 2},
+    "marker": {"size": 6}
+}];
+        Plotly.newPlot("second-seed-plot", secondSeedTraces, oddsLayout, config).then(function() {
+            setupHighlight("second-seed-plot");
+        });
+    </script>
+</body>
+</html>
